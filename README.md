@@ -1,1 +1,0 @@
-# PDF-Summary-Generator-App
