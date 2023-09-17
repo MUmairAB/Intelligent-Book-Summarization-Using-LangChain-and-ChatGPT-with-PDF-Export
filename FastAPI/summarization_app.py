@@ -206,9 +206,8 @@ async def summary(file: UploadFile = File(...)):
 
     #Convert the Summarized text from string to a PDF file
     pdf_generation(summary, file)
-     
-    path = "Uploaded_Files/" + file.filename
-    return FileResponse(path)
+    
+    return FileResponse("Summarized_Files/summary.pdf")
 
 #Define the main function
 if __name__ == "__main__":
