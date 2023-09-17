@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- [Introduction](introduction)
+- [Introduction](#introduction)
   - [LangChain Framework](langChain-framework)
   - [ChatGPT as Language Model](ChatGPT-as-language-model)
   - [Summarization Process](summarization-process)
@@ -20,7 +20,7 @@
 
 ---
 
-## Introduction <a name="introduction"></a>
+## Introduction 
 
 In today's fast-paced world, the ability to distill large volumes of information into concise summaries is a valuable skill. This project aims to leverage cutting-edge technologies to create an intelligent book summarization system that combines the power of the **LangChain** framework, **ChatGPT** as a Language Model, and the **FPDF** Python library to produce well-structured PDF summaries of books.
 
