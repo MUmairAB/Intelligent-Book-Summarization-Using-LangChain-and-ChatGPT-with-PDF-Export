@@ -3,19 +3,18 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-  - [LangChain Framework](langChain-framework)
-  - [ChatGPT as Language Model](ChatGPT-as-language-model)
-  - [Summarization Process](summarization-process)
-  - [PDF Export Using FPDF](PDF-export-using-FPDF)
-  - [Contributions and Workaround for API Limits](contributions-and-workaround-for-API-limits)
-  - [PDF Generation](PDF-generation)
-- [FastAPI](fastapi)
-- [Features](features)
-- [Getting Started](getting-started)
-  - [Prerequisites](prerequisites)
-  - [Installation](installation)
-- [Usage](usage)
-- [Contributing](contributing)
+  - [LangChain Framework](#langChain-framework)
+  - [ChatGPT as Language Model](#ChatGPT-as-language-model)
+  - [Summarization Process](#summarization-process)
+  - [PDF Export Using FPDF](#PDF-export-using-FPDF)
+  - [Contributions and Workaround for API Limits](#contributions-and-workaround-for-API-limits)
+  - [PDF Generation](#PDF-generation)
+- [FastAPI](#fastapi)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
 
 
 ---
