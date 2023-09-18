@@ -1,0 +1,7 @@
+fpdf
+fastapi
+uvicorn
+langchain
+openai
+tiktoken
+nltk
