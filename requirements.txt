@@ -1,0 +1,6 @@
+fpdf
+langchain
+openai
+tiktoken
+nltk
+pypdf
