@@ -102,6 +102,10 @@ def pdf_generation(final_summary, file):
     from fpdf import FPDF
     import random
 
+    #Tokenize the summary into paragraphs
+    from nltk.tokenize import sent_tokenize
+    summary_paras = sent_tokenize(final_summary)
+    
     #Instantiate the FPDF class
     pdf = FPDF(orientation='P', #Portrait
            unit= 'in', # Inches
@@ -130,46 +134,37 @@ def pdf_generation(final_summary, file):
                  size=20
                  )
     
-    #Add the tex "Summary of the Book Crime & Punishments" on the first page
-    pdf.cell(w=6.25, h=1, txt = "Summary", ln = 1, align = 'C')
-    pdf.cell(w=6.25, h=1, txt = "of", ln = 1, align = 'C')
-    pdf.cell(w=6.25, h=1, txt = f"{file.filename}", ln = 1, align = 'C')
+    #Add the text "Summary of the Book Crime & Punishments" on the first page
+    pdf.multi_cell(w=6.27, h=1, txt = "Summary", align = 'C')
+    pdf.multi_cell(w=6.27, h=1, txt = "of", align = 'C')
+    pdf.multi_cell(w=6.27, h=1, txt = f"{file.filename}", align = 'C')
     
     #Add a new page
     pdf.add_page()
 
-    #Set the style to noraml and font size to 12
+    #Set the style to normal and font size to 12
     pdf.set_font(family="Times",
-                 style='',  # 'I' --> italics, 'U' --> underlined, '' --> regular font
+                 style='',  
                  size=12
                  )
     
-    line = ""
-    next_line = random.randrange(start=50, stop=200)
-    para_length = 0
-    period_words = ["Mrs.", "Mr.", "Ms.", "Dr.", "Prof.", "Capt.", "Gen.", "Sen.", "Rev.", "Hon.", "St."\
-                   "Jr.","Sr.", "i.e.","e.g.","etc.","a.m.", "p.m.",]
-    for count, word in enumerate(final_summary.split(" ")):
-        para_length = para_length + 1
-        if para_length > next_line:
-            if (word.endswith(".")) and (word not in period_words) and (len(word) > 2):
-                #insert the line in pdf
-                pdf.cell(w=6.25, h=0.285, txt = line + " "+ word, ln = 1, align = '')
-                #insert a line-break
-                pdf.cell(w=0, h=0.285, txt = "", ln = 1, align = '')
-                line = ""
-                next_line = random.randrange(start=50, stop=200)
-                para_length = 0
-                continue
-        if len(line) + len(word) <= 87:
-            line = line + " " + word
-        else:
-            #insert the line in pdf
-            pdf.cell(w=6.25, h=0.285, txt = line, ln = 1, align = '')
-            line = word
-    
-    #Write the last line
-    pdf.cell(w=6.25, h=0.285, txt = line, ln = 1, align = '')
+    sentence_num = random.randrange(start=4, stop=8)
+    sentence_count = 0
+    paragraph = "     "
+    for sentence in summary_paras:
+        sentence_count = sentence_count + 1
+        if sentence_count > sentence_num:
+            #insert the paragraph in pdf
+            pdf.multi_cell(w=6.27, h=0.285, txt = paragraph, align = '')
+
+            #insert a line-break
+            pdf.cell(w=0, h=0.285, txt = "", ln = 1, align = '')
+            sentence_count = 0
+            sentence_num = random.randrange(start=4, stop=8)
+            paragraph = "     "
+        paragraph = paragraph + " " + sentence
+    #insert the last paragraph in pdf
+    pdf.multi_cell(w=6.27, h=0.285, txt = paragraph, align = '')
     
     # save the pdf with name .pdf
     pdf.output("Summarized_Files/summary.pdf")
@@ -186,7 +181,7 @@ async def summary(file: UploadFile = File(...)):
 
     #Save the uploaded file locally in the "Uploaded_Files" directory
     # If the storage is successful, then proceed
-    # otherwise clode the execution and return an error message.
+    # otherwise close the execution and return an error message.
     try:
         with open("Uploaded_Files/"+file.filename, 'wb') as f:
             shutil.copyfileobj(file.file, f)
@@ -196,7 +191,7 @@ async def summary(file: UploadFile = File(...)):
         file.file.close()
 
     #Use the extract_api() method to read and store the API key
-    # as environment variable
+    # as an environment variable
     extract_api_ftn_return_value = extract_api()
     if extract_api_ftn_return_value == 0:
         return {"message": "There is some error with your API key. Please check your API_file."}
@@ -204,7 +199,7 @@ async def summary(file: UploadFile = File(...)):
     #Summarize the text
     summary = summarization_ftn(file)
 
-    #Convert the Summarized text from string to a PDF file
+    #Convert the Summarized text from a string to a PDF file
     pdf_generation(summary, file)
     
     return FileResponse("Summarized_Files/summary.pdf")
