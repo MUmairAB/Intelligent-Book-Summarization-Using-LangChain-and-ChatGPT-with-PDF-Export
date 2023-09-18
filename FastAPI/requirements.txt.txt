@@ -1,4 +1,0 @@
-pypdf
-langchain
-openai
-tiktoken
