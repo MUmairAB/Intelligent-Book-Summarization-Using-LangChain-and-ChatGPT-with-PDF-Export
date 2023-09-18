@@ -5,3 +5,4 @@ langchain
 openai
 tiktoken
 nltk
+pypdf
